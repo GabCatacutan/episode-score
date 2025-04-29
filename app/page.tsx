@@ -25,7 +25,7 @@ export default function Home() {
   return (
     <div className="flex items-center justify-center h-screen">
       <div>
-        <p className="text-6xl">Welcome to EpisodeScore</p>
+        <p className="text-6xl text-center">EpisodeScore</p>
         <p className="text-center text-3xl">
           Enter a tv show and see its episode ratings
         </p>
@@ -33,11 +33,12 @@ export default function Home() {
           placeholder="Search a tv show..."
           value={showName}
           onChange={handleShowSearch}
+          className="m-4"
         />
         {loading && <p>Loading...</p>} {/* Show loading text when fetching */}
-        <div className="h-64 overflow-y-auto">
-          {showList.length > 0 ? (
-            <ul>
+        <div className="h-64 overflow-y-auto m-4">
+          {showList.length > 0 && !loading ? (
+            <ul className="border-white">
               {showList.map((show: any, index) => (
                 <a key={index} href={`/show/${show.id}`}>
                   <li className="flex p-4 hover:bg-primary" key={show.name}>
@@ -53,8 +54,7 @@ export default function Home() {
                 </a>
               ))}
             </ul>
-          ) : (
-            <p>No shows found.</p>
+          ) : (<>No shows found..</>
           )}
         </div>
       </div>

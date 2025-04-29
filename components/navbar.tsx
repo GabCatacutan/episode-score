@@ -49,12 +49,12 @@ export default function Navbar() {
             )}
 
             {!loading && showList.length > 0 && (
-              <ul className="absolute top-full mt-1 w-full max-h-80 overflow-y-auto rounded border bg-white shadow-lg dark:bg-gray-800 dark:border-gray-700">
+              <ul className="absolute top-full mt-1 w-full max-h-80 overflow-y-auto rounded bordershadow-lg bg-background">
                 {showList.map((show: any) => (
                   <li key={show.id}>
                     <a
                       href={`/show/${show.id}`}
-                      className="flex items-center gap-3 p-3 transition hover:bg-gray-100 dark:hover:bg-gray-700"
+                      className="flex items-center gap-3 p-3 transition hover:bg-primary"
                     >
                       <img
                         src={`https://image.tmdb.org/t/p/w92${show.poster_path}`}
@@ -62,10 +62,10 @@ export default function Navbar() {
                         className="h-12 w-8 object-cover rounded"
                       />
                       <div className="flex flex-col">
-                        <span className="font-medium text-gray-900 dark:text-white">
+                        <span className="font-medium">
                           {show.name}
                         </span>
-                        <span className="text-sm text-gray-500 dark:text-gray-400">
+                        <span className="text-sm">
                           {show.first_air_date?.slice(0, 4) ?? "Unknown Year"}
                         </span>
                       </div>
