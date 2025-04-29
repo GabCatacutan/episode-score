@@ -21,29 +21,28 @@ const ShowPage = async ({ params }: Props) => {
     episodeList.push({ season: i + 1, episodes });
   }
 
-  console.log(episodeList[0])
-
+  console.log(seriesData)
   return (
-    <div className="flex p-4">
+    <div className="flex p-4 h-screen">
       {/*Series Details Section */}
       <div>
-        <h1 className="text-2xl font-bold">Show ID: {showId}</h1>
+        <h1 className="text-2xl font-bold">{seriesData.name}</h1>
         <img
-          className="h-80 w-64"
+          className="h-108 min-w-72"
           src={`https://image.tmdb.org/t/p/w500${seriesData.poster_path}`}
         ></img>
         <h1>Number of seasons: {numOfSeasons}</h1>
       </div>
 
       {/*Episode List and Rating Section */}
-      <div>
+      <div className="overflow-auto">
         <div className="flex mt-4">
           {episodeList.map((seasonData, index) => (
             <div key={index} className="mb-4">
               <h2 className="text-xl p-4">Season {seasonData.season}</h2>
-              <ul className="flex flex-col flex-wrap">
+              <ul className="flex flex-col">
                 {seasonData.episodes.map((episode: any, index: number) => (
-                  <EpisodeRating episode={episode} index={index}></EpisodeRating>
+                  <EpisodeRating key={episode.id}episode={episode} index={index}></EpisodeRating>
                 ))}
               </ul>
             </div>

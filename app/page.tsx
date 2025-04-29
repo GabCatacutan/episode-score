@@ -40,7 +40,7 @@ export default function Home() {
             <ul>
               {showList.map((show: any, index) => (
                 <a key={index} href={`/show/${show.id}`}>
-                  <li className="flex p-4 hover:bg-gray-100" key={show.name}>
+                  <li className="flex p-4 hover:bg-primary" key={show.name}>
                     <img
                       src={`https://image.tmdb.org/t/p/w500${show.poster_path}`}
                       alt={`${show.name} Poster`}
