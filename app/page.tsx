@@ -16,7 +16,6 @@ export default function Home() {
     if (showName) {
       const data = await getShowList(showName);
       setShowList(data.results);
-      console.log(showList);
     } else {
       setShowList([]); // Clear show list if input is empty
     }
@@ -41,11 +40,11 @@ export default function Home() {
             <ul>
               {showList.map((show: any, index) => (
                 <a key={index} href={`/show/${show.id}`}>
-                  <li className="flex m-1" key={show.name}>
+                  <li className="flex p-4 hover:bg-gray-100" key={show.name}>
                     <img
                       src={`https://image.tmdb.org/t/p/w500${show.poster_path}`}
                       alt={`${show.name} Poster`}
-                      className="h-10 w-8 rounded"
+                      className="h-12 w-8 rounded"
                     />
                     <p className="my-auto mx-2">
                       {show.name} ({show.first_air_date})

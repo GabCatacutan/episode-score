@@ -1,4 +1,5 @@
 // app/show/[showId]/page.tsx
+import EpisodeRating from "@/components/episodedetailshover";
 import { getSeasonDetails, getShowDetails } from "@/services/tmdb/api";
 
 type Props = {
@@ -6,13 +7,12 @@ type Props = {
 };
 
 const ShowPage = async ({ params }: Props) => {
-  const showId = await params.showId;
+  const { showId } = await params;
 
   // Fetch number of seasons for the show
   const seriesData = await getShowDetails(showId);
 
   const numOfSeasons = seriesData.number_of_seasons;
-
 
   // Fetch episode list from each season
   const episodeList = [];
@@ -21,18 +21,10 @@ const ShowPage = async ({ params }: Props) => {
     episodeList.push({ season: i + 1, episodes });
   }
 
-  console.log("Show details", seriesData);
-
-  console.log("Episodes", episodeList)
-
-  const getColor = (num: number) => {
-    const greenIntensity = Math.floor(((num - 1) * 255) / 9); // Map 1-10 to 0-255
-    const redIntensity = 255 - greenIntensity; // Inverse of green to get a red-green gradient
-    return `rgb(${redIntensity}, ${greenIntensity}, 0)`; // RGB color
-  };
+  console.log(episodeList[0])
 
   return (
-    <div className="p-4">
+    <div className="flex p-4">
       {/*Series Details Section */}
       <div>
         <h1 className="text-2xl font-bold">Show ID: {showId}</h1>
@@ -48,20 +40,10 @@ const ShowPage = async ({ params }: Props) => {
         <div className="flex mt-4">
           {episodeList.map((seasonData, index) => (
             <div key={index} className="mb-4">
-              <h2 className="text-xl">Season {seasonData.season}</h2>
+              <h2 className="text-xl p-4">Season {seasonData.season}</h2>
               <ul className="flex flex-col flex-wrap">
-                {seasonData.episodes.map((episode: any) => (
-                  <li key={episode.id}>
-                    <p>
-                      {episode.name} - Air Date: {episode.air_date}
-                    </p>
-                    <p>Rating: {episode.vote_average}</p>
-                    <div style={{ backgroundColor: getColor(episode.vote_average) }}
-                      className="w-[150px] h-[150px] rounded-xl flex justify-center items-center text-white text-2xl font-bold"
-                    >
-                      {episode.vote_average}
-                    </div>
-                  </li>
+                {seasonData.episodes.map((episode: any, index: number) => (
+                  <EpisodeRating episode={episode} index={index}></EpisodeRating>
                 ))}
               </ul>
             </div>
